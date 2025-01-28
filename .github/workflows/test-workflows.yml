@@ -53,9 +53,10 @@ jobs:
         with:
           # Configuration SMTP de l'expéditeur
           server_address: smtp.mail.yahoo.com
-          server_port: 465
+          server_port: 587
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
+          secure : false
           subject: Playwright Test Report
           body: "Veuillez trouver en pièce jointe le rapport HTML généré après les tests."
           to: johnny.demarlier@gmail.com
