@@ -47,7 +47,10 @@ jobs:
         with:
           name: playwright-report
 
-      # Envoyer l'email avec le rapport HTML
+      - name: List files in current directory
+        run: ls -R
+      
+          # Envoyer l'email avec le rapport HTML
       - name: Send Email
         uses: dawidd6/action-send-mail@v3
         with:
