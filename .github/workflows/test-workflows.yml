@@ -52,13 +52,12 @@ jobs:
         uses: dawidd6/action-send-mail@v3
         with:
           # Configuration SMTP de l'expéditeur
-          server_address: smtp.mail.yahoo.com
-          server_port: 587
+          server_address: smtp.gmail.com
+          server_port: 465
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
-          secure : false
           subject: Playwright Test Report
           body: "Veuillez trouver en pièce jointe le rapport HTML généré après les tests."
           to: johnny.demarlier@gmail.com
-          from: "ssidtestfonct01@yahoo.com"
+          from: "automajohn01@gmail.com"
           attachments: playwright-report/index.html
