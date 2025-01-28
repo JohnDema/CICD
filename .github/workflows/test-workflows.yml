@@ -26,9 +26,13 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install
 
-      # Exécuter les tests
+      # Exécuter les tests avec le rapport HTML activé
       - name: Run Playwright Tests
-        run: npx playwright test
+        run: npx playwright test --reporter=html
+
+      # Vérifier le dossier du rapport HTML
+      - name: Check Playwright Report Directory
+        run: ls -R playwright-report || echo "Report directory not found!"
 
       # Archiver les rapports HTML
       - name: Upload Playwright Report
@@ -47,13 +51,17 @@ jobs:
         with:
           name: playwright-report
 
-      # Vérifier les fichiers téléchargés
-      - name: List files in current directory
-        run: ls -R
+      # Vérifier le contenu du dossier téléchargé
+      - name: List downloaded artifact files
+        run: ls -R playwright-report || echo "No files in downloaded artifact!"
 
-      # Déplacer le rapport HTML si nécessaire
+      # Localiser le fichier HTML
+      - name: Locate HTML report
+        run: find . -name "index.html" || echo "HTML report not found!"
+
+      # Déplacer le rapport HTML si trouvé
       - name: Move HTML report
-        run: mv playwright-report/index.html ./index.html
+        run: mv playwright-report/index.html ./index.html || echo "No HTML report to move."
 
       # Vérifier que le fichier existe
       - name: Ensure HTML report exists
