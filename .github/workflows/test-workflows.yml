@@ -47,10 +47,19 @@ jobs:
         with:
           name: playwright-report
 
+      # Vérifier les fichiers téléchargés
       - name: List files in current directory
         run: ls -R
-      
-          # Envoyer l'email avec le rapport HTML
+
+      # Déplacer le rapport HTML si nécessaire
+      - name: Move HTML report
+        run: mv playwright-report/index.html ./index.html
+
+      # Vérifier que le fichier existe
+      - name: Ensure HTML report exists
+        run: test -f ./index.html || (echo "Report not found!" && exit 1)
+
+      # Envoyer l'email avec le rapport HTML
       - name: Send Email
         uses: dawidd6/action-send-mail@v3
         with:
@@ -63,4 +72,4 @@ jobs:
           body: "Veuillez trouver en pièce jointe le rapport HTML généré après les tests."
           to: johnny.demarlier@gmail.com
           from: "automajohn01@gmail.com"
-          attachments: playwright-report/index.html
+          attachments: ./index.html
